@@ -1,0 +1,58 @@
+<html>
+<head>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+<h1>Hello Ktor!</h1>
+
+<div id="dataviz"></div>
+
+<script>
+    var svg = d3.select("body")
+        .append("svg")
+        .attr("width", 600)
+        .attr("height", 600 )
+        .style('background-color', 'lightgrey')
+
+    function createCircle(offsetx, offsety, name){
+        svg.append("circle")
+            .attr("cx", 100+ offsetx)
+            .attr("cy", 30 + offsety)
+            .attr("r", 40)
+            .text(name);
+
+    }
+
+    d3.json("/data")
+        .then(function (data) {
+            /* Define the data for the circles */
+            var elem = svg.selectAll("g")
+                .data(data.names)
+
+            /*Create and place the "blocks" containing the circle and the text */
+            var elemEnter = elem.enter()
+                .append("g")
+
+            /*Create the circle for each block */
+            var circle = elemEnter.append("circle")
+                .attr("r", 40 )
+                .attr("cx", 100)
+                .attr("cy", 30)
+                .attr("stroke","black")
+                .attr("fill", "white")
+
+            /* Create the text for each block */
+            elemEnter.append("text")
+                .attr("dx", 40)
+                .attr("dy", 100)
+                .text(function(d){return d})
+                })
+        .catch(function (error) {
+            console.log("error:")
+            console.log(error)
+        })
+
+</script>
+
+</body>
+</html>
