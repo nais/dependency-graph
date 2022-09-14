@@ -17,6 +17,10 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
+task<Exec>("npmInstall") {
+    workingDir("src/main/resources/webapp")
+    commandLine("npm", "install")
+}
 repositories {
     mavenCentral()
 }

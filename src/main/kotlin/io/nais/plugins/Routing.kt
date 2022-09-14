@@ -14,13 +14,13 @@ fun Application.configureRouting() {
         }
         get("/data") {
             println("called")
-            call.respondText("""
+            call.respondText("""    
                 {"names": ["Truls", "Audun"]}
             """.trimIndent(), ContentType.Application.Json)
         }
-        // Static plugin. Try to access `/static/index.html`
+        // Static plugin. Try to access `/viz/index.html`
         static("/viz") {
-            resources("static")
+            resources("webapp")
         }
     }
 }
