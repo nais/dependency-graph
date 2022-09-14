@@ -1,13 +1,6 @@
 package io.nais
 
-import io.ktor.server.routing.*
 import io.ktor.http.*
-import io.ktor.server.http.content.*
-import io.ktor.server.webjars.*
-import java.time.*
-import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.request.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlin.test.*
@@ -23,6 +16,17 @@ class ApplicationTest {
         client.get("/").apply {
             assertEquals(HttpStatusCode.OK, status)
             assertEquals("Hello World!", bodyAsText())
+        }
+    }
+
+    @Test
+    fun testData() = testApplication {
+        application {
+            configureRouting()
+        }
+        client.get("/data").apply {
+            assertEquals(HttpStatusCode.OK, status)
+            assertEquals("""{"names": ["Truls", "Audun"]}""", bodyAsText())
         }
     }
 }
